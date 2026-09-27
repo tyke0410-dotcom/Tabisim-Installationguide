@@ -3,13 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>eSIMインストールガイド | TabiSIM</title>
 <meta name="description" content="TabiSIMのeSIMインストール手順を、約30秒で完了できるステップガイドで確認できます。">
+<title>eSIMインストールガイド</title>
 <style>
-  *,*::before,*::after{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
-  img{max-width:100%;}
-  [hidden]{display:none!important;}
   :root{
     --cream-50:#FBF9F6;
     --cream-100:#FFFFFF;
@@ -255,6 +251,7 @@
 </head>
 <body>
 
+
 <div class="wrap">
   <header class="top">
     <div class="brand">
@@ -332,7 +329,7 @@
 
   <section class="card support-card">
     <p id="t-support-body">上記で解決しない場合は、サポートまでお気軽にお問い合わせください。</p>
-    <a class="btn btn-primary" href="https://tabisim.jp/support" id="t-support-btn">サポートに問い合わせる</a>
+    <a class="btn btn-primary" href="https://line.me/R/ti/p/@173apjsu" target="_blank" rel="noopener noreferrer" id="t-support-btn">サポートに問い合わせる</a>
   </section>
 
   <footer class="bottom">TabiSIM / HENZA</footer>
@@ -609,10 +606,7 @@
       var saved = localStorage.getItem("tabisim_check_lang");
       if (saved && I18N[saved]) return saved;
     } catch(e){}
-    var nav = (navigator.language || "ja").toLowerCase();
-    if (nav.indexOf("zh") === 0) return "zh-hant";
-    if (nav.indexOf("ko") === 0) return "ko";
-    if (nav.indexOf("en") === 0) return "en";
+    // デフォルトは常に日本語（ブラウザ言語による自動判定はしない）
     return "ja";
   }
 
