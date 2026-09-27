@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>eSIMインストールガイド | TabiSIM</title>
+<meta name="description" content="TabiSIMのeSIMインストール手順を、約30秒で完了できるステップガイドで確認できます。">
+<style>
+  *,*::before,*::after{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  img{max-width:100%;}
+  [hidden]{display:none!important;}
+  :root{
+    --cream-50:#FBF9F6;
+    --cream-100:#FFFFFF;
+    --gold-100:#F1E3BE;
+    --gold-500:#C4A44A;
+    --brown:#2A2118;
+    --brown-soft:#5A4F41;
+    --line:#EBE3D4;
+    --alert:#A5413C;
+    --alert-100:#F7E6E4;
+    --alert-line:#E7C0BC;
+    --info-bg:#E5F1F9;
+    --info-fg:#2A2118;
+    --info-line:#C7DFEE;
+    --ok-bg:var(--gold-100);
+    --ok-fg:var(--brown);
+    --ok-line:var(--gold-500);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --cream-50:#1E1912;
+      --cream-100:#241E15;
+      --gold-100:#33291A;
+      --gold-500:#D4B563;
+      --brown:#F2E9D8;
+      --brown-soft:#C9BBA0;
+      --line:#3A3020;
+      --alert:#E0917C;
+      --alert-100:#2E1E19;
+      --alert-line:#432922;
+      --info-bg:#1B2A33;
+      --info-fg:#F2E9D8;
+      --info-line:#2C4453;
+      --ok-bg:var(--gold-100);--ok-fg:var(--brown);--ok-line:var(--gold-500);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --cream-50:#1E1912;
+    --cream-100:#241E15;
+    --gold-100:#33291A;
+    --gold-500:#D4B563;
+    --brown:#F2E9D8;
+    --brown-soft:#C9BBA0;
+    --line:#3A3020;
+    --alert:#E0917C;
+    --alert-100:#2E1E19;
+    --alert-line:#432922;
+    --info-bg:#1B2A33;
+    --info-fg:#F2E9D8;
+    --info-line:#2C4453;
+    --ok-bg:var(--gold-100);--ok-fg:var(--brown);--ok-line:var(--gold-500);
+    color-scheme: dark;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--cream-50);
+    color:var(--brown);
+    font-family:'Hiragino Kaku Gothic ProN','Hiragino Sans','Yu Gothic','Meiryo',Arial,sans-serif;
+    padding-inline:20px;
+    padding-block:0 44px;
+  }
+  .wrap{max-width:640px;margin:0 auto;}
+
+  header.top{
+    position:sticky;
+    top:env(safe-area-inset-top,0px);
+    z-index:20;
+    display:flex;align-items:center;justify-content:space-between;
+    padding-block:16px;
+    background:var(--cream-50);
+  }
+  .brand{display:flex;align-items:center;}
+  .brand img{height:48px;width:auto;display:block;}
+  .top-icons{display:flex;gap:10px;}
+  .icon-btn{
+    width:38px;height:38px;border-radius:999px;border:1px solid var(--line);
+    background:transparent;display:flex;align-items:center;justify-content:center;
+    color:var(--brown);cursor:pointer;
+  }
+  .icon-btn:hover{background:var(--gold-100);}
+  .icon-btn:focus-visible{outline:2px solid var(--gold-500);outline-offset:2px;}
+  .lang-wrap{position:relative;}
+  .lang-menu{
+    position:absolute;top:calc(100% + 8px);right:0;z-index:20;min-width:140px;
+    background:var(--cream-100);border:1px solid var(--line);border-radius:14px;
+    box-shadow:0 10px 30px -10px rgba(42,33,24,.25);padding:6px;
+  }
+  .lang-item{
+    display:block;width:100%;text-align:left;padding:9px 12px;border-radius:8px;
+    border:0;background:transparent;font-family:inherit;font-size:14px;color:var(--brown);cursor:pointer;
+  }
+  .lang-item:hover{background:var(--gold-100);}
+  .lang-item.active{font-weight:700;color:var(--gold-500);}
+  .lang-item:focus-visible{outline:2px solid var(--gold-500);outline-offset:-2px;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    border-radius:20px;
+    padding:28px 22px 30px;
+    background:linear-gradient(135deg,#97D0C6 0%,#CFDECA 45%,#E9D8B3 100%);
+    margin-bottom:18px;
+    color:var(--brown);
+  }
+  .hero-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+  .badge{
+    display:inline-flex;align-items:center;gap:6px;
+    padding:6px 14px;border-radius:999px;font-size:12.5px;font-weight:700;letter-spacing:.02em;
+  }
+  .badge-dark{background:var(--brown);color:var(--cream-50);}
+  .badge-light{background:rgba(255,255,255,.72);color:var(--brown);border:1px solid rgba(42,33,24,.12);}
+  .hero h1{
+    font-weight:700;
+    font-size:clamp(26px,7vw,32px);
+    letter-spacing:.02em;
+    margin:0 0 8px;
+    text-wrap:balance;
+  }
+  .hero-sub{margin:0;color:var(--brown-soft);font-size:14.5px;font-weight:500;}
+
+  .os-toggle{display:flex;gap:8px;}
+  .os-btn{
+    flex:1;display:flex;align-items:center;justify-content:center;gap:8px;
+    padding:11px 14px;border-radius:999px;border:1px solid var(--line);
+    background:rgba(255,255,255,.82);color:var(--brown-soft);font-weight:700;font-size:14px;cursor:pointer;
+    max-width:200px;
+  }
+  .os-btn svg{width:16px;height:16px;}
+  .os-btn.active{background:var(--brown);color:var(--cream-50);border-color:var(--brown);}
+
+  /* ---------- cards ---------- */
+  .card{
+    background:var(--cream-100);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:24px 22px;
+    margin-bottom:16px;
+    box-shadow:0 6px 20px -8px rgba(42,33,24,.14);
+  }
+  .card h2{
+    display:flex;align-items:center;gap:10px;
+    font-weight:700;font-size:19px;margin:0 0 16px;
+  }
+  .card h2 svg{width:20px;height:20px;color:var(--gold-500);flex:none;}
+
+  .checklist{list-style:none;margin:0 0 16px;padding:0;display:flex;flex-direction:column;gap:12px;}
+  .checklist li{display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6;}
+  .checklist li svg{width:18px;height:18px;flex:none;margin-top:1px;color:#3D6B31;}
+
+  .inline-link{
+    display:inline-flex;align-items:center;gap:4px;
+    color:var(--gold-500);font-weight:700;font-size:14px;text-decoration:none;
+    padding-left:28px;
+  }
+  .inline-link svg{width:14px;height:14px;}
+  .inline-link:hover{text-decoration:underline;}
+
+  .info-box{
+    display:flex;gap:10px;align-items:flex-start;
+    background:var(--info-bg);border:1px solid var(--info-line);
+    border-radius:12px;padding:14px 16px;margin-top:16px;
+    font-size:13.5px;line-height:1.7;color:var(--info-fg);
+  }
+  .info-box svg{width:18px;height:18px;flex:none;margin-top:1px;color:#2E6C96;}
+
+  /* ---------- steps ---------- */
+  .section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;flex-wrap:wrap;}
+  .section-head h2{font-weight:700;font-size:20px;margin:0;}
+  .section-head .os-toggle{max-width:220px;}
+  .section-head .os-btn{padding:8px 12px;font-size:13px;max-width:110px;}
+
+  .steps{display:flex;flex-direction:column;gap:22px;margin-bottom:8px;}
+  .step{display:flex;gap:14px;}
+  .step-num{
+    flex:none;width:32px;height:32px;border-radius:999px;
+    background:var(--brown);color:var(--cream-50);
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14.5px;
+  }
+  .step.warn .step-num{background:var(--alert);}
+  .step-body{flex:1;min-width:0;}
+  .step-body h3{margin:2px 0 6px;font-size:15.5px;font-weight:700;}
+  .step-body p{margin:0;font-size:14px;line-height:1.7;color:var(--brown-soft);}
+  .step.warn .step-body p{color:var(--brown);}
+  .step.warn{
+    background:var(--alert-100);border:1px solid var(--alert-line);
+    border-radius:12px;padding:14px;margin:-6px -14px -6px -0px;
+  }
+  .step.warn .step-num{margin-top:2px;}
+  .term-chip{
+    display:inline-flex;align-items:center;gap:6px;margin-top:10px;
+    padding:6px 12px;border-radius:999px;background:var(--cream-100);border:1px solid var(--alert-line);
+    font-size:12.5px;font-weight:700;color:var(--brown);
+  }
+  .term-chip svg{width:14px;height:14px;color:var(--alert);}
+
+  /* ---------- qr resend ---------- */
+  .qr-card{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  .qr-card .qr-text{flex:1;min-width:180px;}
+  .qr-card h2{margin-bottom:6px;}
+  .qr-card p{margin:0;font-size:13.5px;color:var(--brown-soft);line-height:1.6;}
+  .btn{
+    display:inline-flex;align-items:center;gap:6px;
+    border-radius:999px;padding:10px 20px;font-size:14px;font-weight:700;
+    text-decoration:none;border:1px solid transparent;cursor:pointer;
+    font-family:inherit;white-space:nowrap;
+  }
+  .btn:active{transform:scale(.98);}
+  .btn-primary{background:var(--brown);color:var(--cream-50);}
+  .btn-primary:hover{filter:brightness(1.15);}
+  .btn-outline{background:transparent;color:var(--brown);border-color:var(--line);}
+  .btn-outline:hover{background:var(--gold-100);}
+
+  /* ---------- FAQ ---------- */
+  details.faq{
+    border:1px solid var(--line);border-radius:14px;background:var(--cream-100);
+    margin-bottom:10px;overflow:hidden;
+    box-shadow:0 4px 14px -8px rgba(42,33,24,.12);
+  }
+  details.faq summary{
+    list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;
+    padding:16px 18px;font-weight:700;font-size:14.5px;
+  }
+  details.faq summary::-webkit-details-marker{display:none;}
+  details.faq summary .q-icon{flex:none;width:20px;height:20px;color:var(--gold-500);}
+  details.faq summary .chev{margin-left:auto;flex:none;transition:transform .18s ease;color:var(--brown-soft);}
+  details.faq[open] summary .chev{transform:rotate(180deg);}
+  .faq-body{padding:0 18px 18px 48px;font-size:13.5px;line-height:1.75;color:var(--brown-soft);}
+  .faq-body .apn-value{
+    display:inline-block;margin-top:8px;padding:4px 10px;border-radius:8px;
+    background:var(--gold-100);color:var(--brown);font-weight:700;font-size:13px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+
+  .support-card{text-align:center;}
+  .support-card p{margin:0 0 14px;font-size:13.5px;color:var(--brown-soft);}
+
+  footer.bottom{text-align:center;font-size:12.5px;color:var(--brown-soft);border-top:1px solid var(--line);margin-top:24px;padding-top:20px;}
+  h2, h3 { text-wrap: balance; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <img src="assets/tabisim-logo.png" alt="TabiSIM">
+    </div>
+    <div class="top-icons">
+      <div class="lang-wrap">
+        <button class="icon-btn" id="lang-btn" aria-label="Language / 言語切り替え" aria-haspopup="true" aria-expanded="false" type="button">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20Z"/></svg>
+        </button>
+        <div class="lang-menu" id="lang-menu" hidden>
+          <button type="button" class="lang-item" data-lang="ja">日本語</button>
+          <button type="button" class="lang-item" data-lang="en">English</button>
+          <button type="button" class="lang-item" data-lang="zh-hant">繁體中文</button>
+          <button type="button" class="lang-item" data-lang="ko">한국어</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1 id="t-hero-title">eSIMインストールガイド</h1>
+    <p class="hero-sub" id="t-hero-sub">For Traveller to OKINAWA</p>
+  </section>
+
+  <section class="card">
+    <h2>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+      <span id="t-before-title">はじめる前に</span>
+    </h2>
+    <ul class="checklist">
+      <li>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        <span id="t-check-wifi">Wi-Fiに接続していますか？</span>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        <span id="t-check-device">お使いの端末はeSIM対応機種ですか？</span>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        <span id="t-check-mail">QRコード付きの確認メールを開いていますか？</span>
+      </li>
+    </ul>
+    <div class="info-box">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      <span id="t-info-box">沖縄到着前にインストールするのがおすすめです。到着後だと、通信環境によって読み取りに失敗することがあります。</span>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="section-head">
+      <h2 id="t-steps-title">Quick Installの手順</h2>
+      <div class="os-toggle" id="os-toggle-steps">
+        <button type="button" class="os-btn active" data-os="ios">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
+          iPhone
+        </button>
+        <button type="button" class="os-btn" data-os="android">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+          Android
+        </button>
+      </div>
+    </div>
+    <div class="steps" id="steps-container"></div>
+  </section>
+
+  <section class="card">
+    <h2>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2.5 2-2.5 3.5M12 17h.01"/></svg>
+      <span id="t-faq-title">よくある質問</span>
+    </h2>
+    <div id="faq-container"></div>
+  </section>
+
+  <section class="card support-card">
+    <p id="t-support-body">上記で解決しない場合は、サポートまでお気軽にお問い合わせください。</p>
+    <a class="btn btn-primary" href="https://tabisim.jp/support" id="t-support-btn">サポートに問い合わせる</a>
+  </section>
+
+  <footer class="bottom">TabiSIM / HENZA</footer>
+</div>
+
+<script>
+(function(){
+
+  // ---------- i18n ----------
+  var I18N = {
+    ja: {
+      badgeRegion:"OKINAWA", badgeSpeed:"約30秒で完了",
+      heroTitle:"eSIMインストールガイド", heroSub:"For Traveller to OKINAWA",
+      osIosLabel:"iPhoneガイド", osAndroidLabel:"Androidガイド",
+      beforeTitle:"はじめる前に",
+      checkWifi:"Wi-Fiに接続していますか？",
+      checkDevice:"お使いの端末はeSIM対応機種ですか？",
+      checkMail:"QRコード付きの確認メールを開いていますか？",
+      checkLinkText:"eSIM対応の確認はこちらから",
+      infoBox:"沖縄到着前にインストールするのがおすすめです。到着後だと、通信環境によって読み取りに失敗することがあります。",
+      stepsTitle:"Quick Installの手順",
+      steps:{
+        ios:[
+          {title:"QRコード付きメールを開く", body:"確認メール内のQRコードを表示します。"},
+          {title:"クイックインストールでeSIMをインストール", body:"メール内のクイックインストールボタンをタップして、eSIMをインストールします。"},
+          {title:"「設定」>「モバイル通信」でプラン追加を確認", body:"新しいeSIMプランが追加されていることを確認します。プラン名が分かりにくい場合は「沖縄eSIM」などに変更するのがおすすめです。"},
+          {title:"沖縄到着後、回線を切り替えて「データローミング」をON", body:"沖縄に到着したら、モバイル通信で回線を沖縄用のeSIMプランに切り替え、「データローミング」を必ずONにしてください。", warn:true, chip:"データローミング"}
+        ],
+        android:[
+          {title:"QRコード付きメールを開く", body:"確認メール内のQRコードを表示します。"},
+          {title:"クイックインストールでeSIMをインストール", body:"メール内のクイックインストールボタンをタップして、eSIMをインストールします。"},
+          {title:"「設定」>「接続」>「SIMカードマネージャー」でプラン追加を確認", body:"新しいeSIMプランが追加されていることを確認します。プラン名が分かりにくい場合は「沖縄eSIM」などに変更するのがおすすめです。"},
+          {title:"沖縄到着後、回線を切り替えて「データローミング」をON", body:"沖縄に到着したら、SIMカードマネージャーで回線を沖縄用のeSIMプランに切り替え、「データローミング」を必ずONにしてください。", warn:true, chip:"データローミング"}
+        ]
+      },
+      qrTitle:"QRコードをもう一度確認する",
+      qrBody:"確認メールを紛失・見失った場合は、下のボタンからサポートにご連絡ください。",
+      qrBtn:"QRコードを再送してもらう",
+      faqTitle:"よくある質問",
+      faq:[
+        {q:"QRコードが読み取れません", a:"画面の明るさを上げ、QRコード全体がカメラ枠に収まるようにしてください。それでも読み取れない場合は上のボタンから再表示できます。"},
+        {q:"「すでにインストールされています」と表示されます", a:"同じQRコードを2回読み込もうとすると表示されます。すでにインストール済みの可能性が高いため、「設定」内のeSIMプラン一覧をご確認ください。見つからない場合はサポートへご連絡ください。"},
+        {q:"インストール済みなのにインターネットに繋がりません", a:"まれに、インストール直後に誤った接続設定（APN）が自動で設定されることがあります。APNとは、スマートフォンが通信会社のネットワークに接続するための「接続先の住所」のようなものです。「設定」からモバイル通信のAPN項目を開き、以下の値になっているかご確認ください。", apnLabel:"Android向けAPN", apnValue:"vmobile.jp"}
+      ],
+      supportBody:"上記で解決しない場合は、サポートまでお気軽にお問い合わせください。",
+      supportBtn:"サポートに問い合わせる"
+    },
+    en: {
+      badgeRegion:"OKINAWA", badgeSpeed:"Ready in ~30 seconds",
+      heroTitle:"eSIM Installation Guide", heroSub:"For Traveller to OKINAWA",
+      osIosLabel:"iPhone Guide", osAndroidLabel:"Android Guide",
+      beforeTitle:"Before You Start",
+      checkWifi:"Are you connected to Wi-Fi?",
+      checkDevice:"Is your device eSIM-compatible?",
+      checkMail:"Have you opened the confirmation email with the QR code?",
+      checkLinkText:"Check eSIM compatibility here",
+      infoBox:"We recommend installing before you arrive in Okinawa. Installing after arrival can sometimes fail to scan depending on your connection.",
+      stepsTitle:"Quick Install Steps",
+      steps:{
+        ios:[
+          {title:"Open the email with your QR code", body:"Display the QR code from your confirmation email."},
+          {title:"Install the eSIM with Quick Install", body:"Tap the Quick Install button in the email to install your eSIM."},
+          {title:"Check the new plan under Settings > Cellular", body:"Confirm the new eSIM plan has been added. If the name is hard to identify, we recommend renaming it to something like “Okinawa eSIM”."},
+          {title:"After arriving in Okinawa, switch lines and turn on Data Roaming", body:"Once you land in Okinawa, switch your cellular line to the Okinawa eSIM plan and make sure to turn on Data Roaming.", warn:true, chip:"Data Roaming"}
+        ],
+        android:[
+          {title:"Open the email with your QR code", body:"Display the QR code from your confirmation email."},
+          {title:"Install the eSIM with Quick Install", body:"Tap the Quick Install button in the email to install your eSIM."},
+          {title:"Check the new plan under Settings > Connections > SIM Manager", body:"Confirm the new eSIM plan has been added. If the name is hard to identify, we recommend renaming it to something like “Okinawa eSIM”."},
+          {title:"After arriving in Okinawa, switch lines and turn on Data Roaming", body:"Once you land in Okinawa, switch your line to the Okinawa eSIM plan in SIM Manager and make sure to turn on Data Roaming.", warn:true, chip:"Data Roaming"}
+        ]
+      },
+      qrTitle:"Need your QR code again?",
+      qrBody:"If you've lost or can't find your confirmation email, please contact our support team below.",
+      qrBtn:"Request your QR code again",
+      faqTitle:"Frequently Asked Questions",
+      faq:[
+        {q:"The QR code won't scan", a:"Increase your screen brightness and make sure the whole QR code fits inside the camera frame. If it still won't scan, you can display it again using the button above."},
+        {q:"It says “already installed”", a:"This appears when the same QR code is scanned a second time. It usually means the eSIM is already installed — please check your list of eSIM plans under Settings. If you can't find it, please contact support."},
+        {q:"It's installed, but I have no internet connection", a:"In rare cases, an incorrect connection setting (APN) gets applied automatically right after installation. An APN is essentially the “address” your phone uses to connect to the carrier's network. Open the cellular APN settings and confirm it matches the value below.", apnLabel:"APN for Android", apnValue:"vmobile.jp"}
+      ],
+      supportBody:"If this didn't solve your issue, please don't hesitate to contact our support team.",
+      supportBtn:"Contact Support"
+    },
+    "zh-hant": {
+      badgeRegion:"沖繩", badgeSpeed:"約 30 秒完成",
+      heroTitle:"eSIM 安裝教學", heroSub:"For Traveller to OKINAWA",
+      osIosLabel:"iPhone 教學", osAndroidLabel:"Android 教學",
+      beforeTitle:"開始之前",
+      checkWifi:"是否已連接 Wi-Fi？",
+      checkDevice:"您的裝置是否支援 eSIM？",
+      checkMail:"是否已開啟含 QR Code 的確認信？",
+      checkLinkText:"點此確認 eSIM 相容性",
+      infoBox:"建議於抵達沖繩前完成安裝。抵達後因網路環境不同，QR Code 掃描可能會失敗。",
+      stepsTitle:"Quick Install 安裝步驟",
+      steps:{
+        ios:[
+          {title:"開啟含 QR Code 的確認信", body:"顯示確認信中的 QR Code。"},
+          {title:"使用 Quick Install 安裝 eSIM", body:"點選信件中的 Quick Install 按鈕，安裝您的 eSIM。"},
+          {title:"於「設定」>「行動網路」確認方案已新增", body:"確認新的 eSIM 方案已新增。若方案名稱不易辨識，建議改為「沖繩 eSIM」等名稱。"},
+          {title:"抵達沖繩後，切換線路並開啟「數據漫遊」", body:"抵達沖繩後，請於行動網路中切換至沖繩用 eSIM 方案，並務必開啟「數據漫遊」。", warn:true, chip:"數據漫遊"}
+        ],
+        android:[
+          {title:"開啟含 QR Code 的確認信", body:"顯示確認信中的 QR Code。"},
+          {title:"使用 Quick Install 安裝 eSIM", body:"點選信件中的 Quick Install 按鈕，安裝您的 eSIM。"},
+          {title:"於「設定」>「連線」>「SIM卡管理員」確認方案已新增", body:"確認新的 eSIM 方案已新增。若方案名稱不易辨識，建議改為「沖繩 eSIM」等名稱。"},
+          {title:"抵達沖繩後，切換線路並開啟「數據漫遊」", body:"抵達沖繩後，請於 SIM 卡管理員中切換至沖繩用 eSIM 方案，並務必開啟「數據漫遊」。", warn:true, chip:"數據漫遊"}
+        ]
+      },
+      qrTitle:"需要重新查看 QR Code？",
+      qrBody:"若您遺失或找不到確認信，請透過下方按鈕聯繫客服。",
+      qrBtn:"請客服重新發送 QR Code",
+      faqTitle:"常見問題",
+      faq:[
+        {q:"無法掃描 QR Code", a:"請調高螢幕亮度，並確認整個 QR Code 都在相機取景框內。若仍無法掃描，可透過上方按鈕重新顯示。"},
+        {q:"顯示「已安裝」", a:"重複掃描同一組 QR Code 時會出現此訊息，通常代表 eSIM 已安裝完成，請至「設定」的 eSIM 方案清單確認。若找不到，請聯繫客服。"},
+        {q:"已安裝但無法上網", a:"少數情況下，安裝完成後會自動套用錯誤的連線設定（APN）。APN 可理解為手機連上電信商網路所需的「連線位址」。請至行動網路的 APN 設定，確認數值是否與下方相符。", apnLabel:"Android 專用 APN", apnValue:"vmobile.jp"}
+      ],
+      supportBody:"若以上方式仍無法解決問題，歡迎隨時聯繫客服。",
+      supportBtn:"聯繫客服"
+    },
+    ko: {
+      badgeRegion:"오키나와", badgeSpeed:"약 30초 완료",
+      heroTitle:"eSIM 설치 가이드", heroSub:"For Traveller to OKINAWA",
+      osIosLabel:"iPhone 가이드", osAndroidLabel:"Android 가이드",
+      beforeTitle:"시작하기 전에",
+      checkWifi:"Wi-Fi에 연결되어 있나요?",
+      checkDevice:"사용 중인 기기가 eSIM 지원 기종인가요?",
+      checkMail:"QR코드가 포함된 확인 메일을 열어보셨나요?",
+      checkLinkText:"eSIM 지원 여부 확인하기",
+      infoBox:"오키나와 도착 전에 설치하는 것을 권장합니다. 도착 후에는 통신 환경에 따라 QR코드 인식이 실패할 수 있습니다.",
+      stepsTitle:"Quick Install 설치 방법",
+      steps:{
+        ios:[
+          {title:"QR코드가 담긴 메일 열기", body:"확인 메일에 있는 QR코드를 화면에 표시합니다."},
+          {title:"Quick Install로 eSIM 설치", body:"메일 내 Quick Install 버튼을 탭하여 eSIM을 설치합니다."},
+          {title:"“설정” > “셀룰러”에서 플랜 추가 확인", body:"새로운 eSIM 플랜이 추가되었는지 확인합니다. 플랜 이름을 구분하기 어려우면 “오키나와 eSIM” 등으로 변경하는 것을 추천합니다."},
+          {title:"오키나와 도착 후 회선을 전환하고 “데이터 로밍” 켜기", body:"오키나와에 도착하면 셀룰러에서 회선을 오키나와용 eSIM 플랜으로 전환하고, “데이터 로밍”을 반드시 켜주세요.", warn:true, chip:"데이터 로밍"}
+        ],
+        android:[
+          {title:"QR코드가 담긴 메일 열기", body:"확인 메일에 있는 QR코드를 화면에 표시합니다."},
+          {title:"Quick Install로 eSIM 설치", body:"메일 내 Quick Install 버튼을 탭하여 eSIM을 설치합니다."},
+          {title:"“설정” > “연결” > “SIM 카드 관리자”에서 플랜 추가 확인", body:"새로운 eSIM 플랜이 추가되었는지 확인합니다. 플랜 이름을 구분하기 어려우면 “오키나와 eSIM” 등으로 변경하는 것을 추천합니다."},
+          {title:"오키나와 도착 후 회선을 전환하고 “데이터 로밍” 켜기", body:"오키나와에 도착하면 SIM 카드 관리자에서 회선을 오키나와용 eSIM 플랜으로 전환하고, “데이터 로밍”을 반드시 켜주세요.", warn:true, chip:"데이터 로밍"}
+        ]
+      },
+      qrTitle:"QR코드를 다시 확인하고 싶다면",
+      qrBody:"확인 메일을 분실했거나 찾을 수 없다면, 아래 버튼으로 고객센터에 문의해 주세요.",
+      qrBtn:"QR코드 재발급 요청하기",
+      faqTitle:"자주 묻는 질문",
+      faq:[
+        {q:"QR코드가 인식되지 않아요", a:"화면 밝기를 높이고 QR코드 전체가 카메라 프레임 안에 들어오도록 해주세요. 그래도 인식되지 않으면 위 버튼으로 다시 표시할 수 있습니다."},
+        {q:"“이미 설치되어 있습니다”라고 표시돼요", a:"동일한 QR코드를 두 번째로 스캔하면 나타나는 메시지입니다. 이미 설치가 완료되었을 가능성이 높으니 “설정”의 eSIM 플랜 목록을 확인해 주세요. 보이지 않는다면 고객센터로 문의해 주세요."},
+        {q:"설치는 됐는데 인터넷이 안 돼요", a:"드물게 설치 직후 잘못된 연결 설정(APN)이 자동으로 적용되는 경우가 있습니다. APN이란 스마트폰이 통신사 네트워크에 접속하기 위한 “접속 주소”와 같은 것입니다. “설정”에서 셀룰러 APN 항목을 열어 아래 값과 일치하는지 확인해 주세요.", apnLabel:"Android용 APN", apnValue:"vmobile.jp"}
+      ],
+      supportBody:"위 방법으로 해결되지 않는다면, 언제든 고객센터로 문의해 주세요.",
+      supportBtn:"고객센터 문의"
+    }
+  };
+
+  var currentLang = "ja";
+  var currentOs = "ios";
+  function t(){ return I18N[currentLang]; }
+
+  // ---------- render ----------
+  var STATIC_MAP = {
+    "t-badge-region":"badgeRegion", "t-badge-speed":"badgeSpeed",
+    "t-hero-title":"heroTitle", "t-hero-sub":"heroSub",
+    "t-before-title":"beforeTitle", "t-check-wifi":"checkWifi",
+    "t-check-device":"checkDevice", "t-check-mail":"checkMail",
+    "t-info-box":"infoBox",
+    "t-steps-title":"stepsTitle", "t-faq-title":"faqTitle",
+    "t-support-body":"supportBody", "t-support-btn":"supportBtn"
+  };
+
+  function applyStaticText(){
+    Object.keys(STATIC_MAP).forEach(function(id){
+      var el = document.getElementById(id);
+      if (el) el.textContent = t()[STATIC_MAP[id]];
+    });
+    document.querySelectorAll(".t-os-ios-label").forEach(function(el){ el.textContent = t().osIosLabel; });
+    document.querySelectorAll(".t-os-android-label").forEach(function(el){ el.textContent = t().osAndroidLabel; });
+  }
+
+  function renderSteps(){
+    var container = document.getElementById("steps-container");
+    container.innerHTML = "";
+    var list = t().steps[currentOs];
+    list.forEach(function(s, i){
+      var div = document.createElement("div");
+      div.className = "step" + (s.warn ? " warn" : "");
+      var chipHtml = s.chip ? (
+        '<span class="term-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>' + s.chip + '</span>'
+      ) : "";
+      div.innerHTML =
+        '<div class="step-num">' + (i+1) + '</div>' +
+        '<div class="step-body"><h3>' + s.title + '</h3><p>' + s.body + '</p>' + chipHtml + '</div>';
+      container.appendChild(div);
+    });
+  }
+
+  function renderFaq(){
+    var container = document.getElementById("faq-container");
+    container.innerHTML = "";
+    t().faq.forEach(function(item, i){
+      var d = document.createElement("details");
+      d.className = "faq";
+      if (i === 0) d.open = true;
+      var extra = item.apnValue ?
+        '<div>' + item.apnLabel + '<br><span class="apn-value">' + item.apnValue + '</span></div>' : "";
+      d.innerHTML =
+        '<summary><svg class="q-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2.5 2-2.5 3.5M12 17h.01"/></svg>' +
+        '<span>' + item.q + '</span>' +
+        '<svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>' +
+        '<div class="faq-body"><p style="margin:0 0 4px;">' + item.a + '</p>' + extra + '</div>';
+      container.appendChild(d);
+    });
+  }
+
+  function setOs(os){
+    currentOs = os;
+    document.querySelectorAll(".os-btn").forEach(function(b){
+      b.classList.toggle("active", b.dataset.os === os);
+    });
+    renderSteps();
+  }
+  document.querySelectorAll(".os-btn").forEach(function(b){
+    b.addEventListener("click", function(){ setOs(b.dataset.os); });
+  });
+
+  function render(){
+    applyStaticText();
+    renderSteps();
+    renderFaq();
+    document.querySelectorAll(".lang-item").forEach(function(el){
+      el.classList.toggle("active", el.dataset.lang === currentLang);
+    });
+  }
+
+  function applyLang(lang){
+    if (!I18N[lang]) return;
+    currentLang = lang;
+    try { document.documentElement.setAttribute("lang", lang === "zh-hant" ? "zh-Hant" : lang); } catch(e){}
+    render();
+    try { localStorage.setItem("tabisim_check_lang", lang); } catch(e){}
+  }
+
+  // ---------- language menu ----------
+  var langBtn = document.getElementById("lang-btn");
+  var langMenu = document.getElementById("lang-menu");
+  function closeLangMenu(){ langMenu.hidden = true; langBtn.setAttribute("aria-expanded","false"); }
+  langBtn.addEventListener("click", function(e){
+    e.stopPropagation();
+    var willOpen = langMenu.hidden;
+    langMenu.hidden = !willOpen;
+    langBtn.setAttribute("aria-expanded", willOpen ? "true" : "false");
+  });
+  document.querySelectorAll(".lang-item").forEach(function(el){
+    el.addEventListener("click", function(){ applyLang(el.dataset.lang); closeLangMenu(); });
+  });
+  document.addEventListener("click", function(e){
+    if (!langMenu.hidden && !langMenu.contains(e.target) && e.target !== langBtn) closeLangMenu();
+  });
+  document.addEventListener("keydown", function(e){ if (e.key === "Escape") closeLangMenu(); });
+
+  // ---------- initial language detection ----------
+  var LANG_KEYS = ["ja","en","zh-hant","ko"];
+  function detectInitialLang(){
+    var path = location.pathname.toLowerCase();
+    for (var i=0;i<LANG_KEYS.length;i++){
+      if (path.indexOf("/" + LANG_KEYS[i] + "/") !== -1) return LANG_KEYS[i];
+    }
+    try {
+      var saved = localStorage.getItem("tabisim_check_lang");
+      if (saved && I18N[saved]) return saved;
+    } catch(e){}
+    var nav = (navigator.language || "ja").toLowerCase();
+    if (nav.indexOf("zh") === 0) return "zh-hant";
+    if (nav.indexOf("ko") === 0) return "ko";
+    if (nav.indexOf("en") === 0) return "en";
+    return "ja";
+  }
+
+  applyLang(detectInitialLang());
+})();
+</script>
+
+</body>
+</html>
