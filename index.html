@@ -219,6 +219,9 @@
   .btn-primary{background:var(--brown);color:var(--cream-50);}
   .btn-primary:hover{filter:brightness(1.15);}
   .btn-outline{background:transparent;color:var(--brown);border-color:var(--line);}
+  .btn-line{background:#06C755;color:#FFFFFF;}
+  .btn-line:hover{filter:brightness(1.08);}
+  .btn-line svg{width:16px;height:16px;flex-shrink:0;}
   .btn-outline:hover{background:var(--gold-100);}
 
   /* ---------- FAQ ---------- */
@@ -329,7 +332,7 @@
 
   <section class="card support-card">
     <p id="t-support-body">上記で解決しない場合は、サポートまでお気軽にお問い合わせください。</p>
-    <a class="btn btn-primary" href="https://line.me/R/ti/p/@173apjsu" target="_blank" rel="noopener noreferrer" id="t-support-btn">サポートに問い合わせる</a>
+    <a class="btn btn-line" href="https://line.me/R/ti/p/@173apjsu" target="_blank" rel="noopener noreferrer" id="t-support-btn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 5.69 2 10.2c0 4.05 3.58 7.44 8.42 8.08.33.07.77.22.88.5.1.26.07.65.03.92l-.14.86c-.04.26-.2.99.87.54 1.07-.45 5.76-3.39 7.86-5.8C21.31 13.68 22 12 22 10.2 22 5.69 17.52 2 12 2z"/></svg><span id="t-support-btn-label">LINEで問い合わせる</span></a>
   </section>
 
   <footer class="bottom">TabiSIM / HENZA</footer>
@@ -375,7 +378,7 @@
         {q:"インストール済みなのにインターネットに繋がりません", a:"まれに、インストール直後に誤った接続設定（APN）が自動で設定されることがあります。APNとは、スマートフォンが通信会社のネットワークに接続するための「接続先の住所」のようなものです。「設定」からモバイル通信のAPN項目を開き、以下の値になっているかご確認ください。", apnLabel:"Android向けAPN", apnValue:"vmobile.jp"}
       ],
       supportBody:"上記で解決しない場合は、サポートまでお気軽にお問い合わせください。",
-      supportBtn:"サポートに問い合わせる"
+      supportBtn:"LINEで問い合わせる"
     },
     en: {
       badgeRegion:"OKINAWA", badgeSpeed:"Ready in ~30 seconds",
@@ -412,7 +415,7 @@
         {q:"It's installed, but I have no internet connection", a:"In rare cases, an incorrect connection setting (APN) gets applied automatically right after installation. An APN is essentially the “address” your phone uses to connect to the carrier's network. Open the cellular APN settings and confirm it matches the value below.", apnLabel:"APN for Android", apnValue:"vmobile.jp"}
       ],
       supportBody:"If this didn't solve your issue, please don't hesitate to contact our support team.",
-      supportBtn:"Contact Support"
+      supportBtn:"Contact us on LINE"
     },
     "zh-hant": {
       badgeRegion:"沖繩", badgeSpeed:"約 30 秒完成",
@@ -449,7 +452,7 @@
         {q:"已安裝但無法上網", a:"少數情況下，安裝完成後會自動套用錯誤的連線設定（APN）。APN 可理解為手機連上電信商網路所需的「連線位址」。請至行動網路的 APN 設定，確認數值是否與下方相符。", apnLabel:"Android 專用 APN", apnValue:"vmobile.jp"}
       ],
       supportBody:"若以上方式仍無法解決問題，歡迎隨時聯繫客服。",
-      supportBtn:"聯繫客服"
+      supportBtn:"透過LINE聯繫客服"
     },
     ko: {
       badgeRegion:"오키나와", badgeSpeed:"약 30초 완료",
@@ -486,7 +489,7 @@
         {q:"설치는 됐는데 인터넷이 안 돼요", a:"드물게 설치 직후 잘못된 연결 설정(APN)이 자동으로 적용되는 경우가 있습니다. APN이란 스마트폰이 통신사 네트워크에 접속하기 위한 “접속 주소”와 같은 것입니다. “설정”에서 셀룰러 APN 항목을 열어 아래 값과 일치하는지 확인해 주세요.", apnLabel:"Android용 APN", apnValue:"vmobile.jp"}
       ],
       supportBody:"위 방법으로 해결되지 않는다면, 언제든 고객센터로 문의해 주세요.",
-      supportBtn:"고객센터 문의"
+      supportBtn:"LINE로 문의하기"
     }
   };
 
@@ -502,7 +505,7 @@
     "t-check-device":"checkDevice", "t-check-mail":"checkMail",
     "t-info-box":"infoBox",
     "t-steps-title":"stepsTitle", "t-faq-title":"faqTitle",
-    "t-support-body":"supportBody", "t-support-btn":"supportBtn"
+    "t-support-body":"supportBody", "t-support-btn-label":"supportBtn"
   };
 
   function applyStaticText(){
